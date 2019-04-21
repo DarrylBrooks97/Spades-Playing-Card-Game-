@@ -1,14 +1,24 @@
 #include "Test2.h"
 
-string Deck::suit[4]= {"♠","♦","♣","♥"};           //Sets the static member 
+string Deck::suit[4]= {"♠","♦","♣","♥"};
 
-void Moves::setPlayerPosition(){   //Player= 0  Computer= 1
+
+Moves::Moves(){
+	this->victory = false;
+}
+
+Moves::Moves(bool Victory){
+	this->victory=Victory;
+}
+
+
+void Moves::setPlayerPosition(){                                                                //Player= 0  Computer= 1
 	playerPosition =0;
 }
 
 string Moves::motivationPrompts[]={"Clever!","Smart Move!","You're Awesome","Good Job!"};      //Static Member 
 
-string Moves::pickPrompt(){                                                        //Static member function 
+string Moves::pickPrompt(){                                                                    //Static member function 
 	int k=0;
 	srand(time(0));
 	k = rand() % 4;
@@ -226,7 +236,7 @@ istream &operator >>(istream & inF, Moves & moveObj){
 	vector<string> suitPlayed;
 	int temp=0;
 	int k=0;
-	bool hasSuit = false;                                                    //Used to tell the program if the user has the suit or not
+	bool hasSuit = false;    //Used to tell the program if the user has the suit or not
 	
 	while(moveObj.userCardPos==-1){
 		
@@ -324,7 +334,7 @@ void Moves::playerMove(){                                      //Logic of the ga
 	
 	if(((userHand[userCardPos].second=="A") && (computerHand[computerCardPos].second=="K")) || ((userHand[userCardPos].second=="A") && (computerHand[computerCardPos].second=="Q")) || ((userHand[userCardPos].second=="A") && (computerHand[computerCardPos].second=="J"))){ // A is bigger than K Q J
 		cout<<"You won the book!"<<endl<<endl; ++playerScore;
-	}else if(((userHand[userCardPos].second=="K") && (computerHand[computerCardPos].second=="A")) || ((userHand[userCardPos].second=="Q") && (computerHand[computerCardPos].second=="A")) || ((userHand[userCardPos].second=="J") && (computerHand[computerCardPos].second=="A"))){ //A is bigger than K Q J
+	}else if(((userHand[userCardPos].second=="K") && (computerHand[computerCardPos].second=="A")) || ((userHand[userCardPos].second=="Q") && (computerHand[computerCardPos].second=="A")) || ((userHand[userCardPos].second=="J") && (computerHand[computerCardPos].second=="A"))){ //Ais bigger than K Q J
 		cout<<"Computer won the book..."<<endl<<endl; ++computerScore;
 	}else if(((userHand[userCardPos].second=="K") && (computerHand[computerCardPos].second=="Q")) || ((userHand[userCardPos].second=="K") && (computerHand[computerCardPos].second=="J"))){  //K is bigger than Q J
 		cout<<"You won the book!"<<endl<<endl; ++playerScore;
@@ -381,7 +391,7 @@ void Moves::playerMove(){                                      //Logic of the ga
 		}
 	}
 	
-	temp[0]=userHand[userHand.size()-1];                                     //Erases the card as if it was played
+	temp[0]=userHand[userHand.size()-1];                     //Erases the card as if it was played
 	userHand[userHand.size()-1] = userHand[userCardPos];
 	userHand[userCardPos] = temp[0];
 	userHand.pop_back();
